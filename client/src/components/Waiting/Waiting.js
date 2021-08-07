@@ -40,7 +40,6 @@ if (!firebase.apps.length) {
 }
 
 const database = firebase.database();
-
 const ENDPOINT = 'localhost:5000';
 let socket;
 const Waiting = ({ location }) => {
@@ -50,16 +49,21 @@ const Waiting = ({ location }) => {
     const [move, setMove ] = useState(false)
     const [latestuser, setLatestuser] = useState('')
     const [push, setPush] = useState(true)
+    const [roomid, setRoomid] = useState('')
+    const [stance, setStance] = useState('')
+    const [interest, setInterest] = useState('')
+
     useEffect(() => {
-      const { name, room } = queryString.parse(location.search);
+      const { name, room, stance, interest } = queryString.parse(location.search);
      
       socket = io('localhost:5000');
-         
+      
       
       const ref = database.ref('empty');
-
+        setInterest(room)
+        setStance(stance)
         setName(name)
-        
+        setRoom(room)
         setLatestuser(name)
         ref.once('value',(data) => {setFirebaseusers(data.val())}) ;
      
@@ -80,16 +84,18 @@ const Waiting = ({ location }) => {
             return false
           }
             for (const key in firebaseusers) {
-              if (firebaseusers[key].interest === room && firebaseusers[key].user != name){
+              if (firebaseusers[key].interest === room && firebaseusers[key].user != name && firebaseusers[key].stance != stance){
                 
                   setRoom(firebaseusers[key].roomid)
+                  var roomid_ = firebaseusers[key].roomid
                     changed = true
-                  database.ref('full').push().set ({
+                  database.ref('full').update ({[firebaseusers[key].roomid]: {
                     user1: name,
                     user2: firebaseusers[key].user,
                     interest:room,
-                    roomid: firebaseusers[key].roomid
-                  })
+                    roomid: firebaseusers[key].roomid,
+                    messages: []
+                  }})
                   setMove(true)
                   ref.child(key).remove() 
                   console.log("here")
@@ -113,7 +119,8 @@ const Waiting = ({ location }) => {
             newref.set ({
             user: name,
             interest:room,
-            roomid:roomid
+            roomid:roomid,
+            stance:stance
             
             })
             setPush(false)
@@ -130,8 +137,8 @@ const Waiting = ({ location }) => {
       
     return (
         <div >
-           <Link to={`/chat?name=${name}&room=${room}`}>
-          <button className={'button mt-20'} type="submit">Sign In</button>
+           <Link to={`/chat?name=${name}&room=${room}&interest=${interest}&stance=${stance}`}>
+          <button className={'button mt-20'} type="submit">Enter Chat Room</button>
         </Link>
         </div>
       );

@@ -1,5 +1,4 @@
 const firebase = require('firebase/app');
-//import firebase from 'firebase/app';
 const firestore = require('firebase/firestore');
 const auth = require('firebase/auth');
 const analytics = require('firebase/analytics');
@@ -38,16 +37,15 @@ if (!firebase.apps.length) {
 const database = firebase.database();
 
 io.on('connection', (socket) => { 
-  socket.on('join', ({ name, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room });
-    console.log(user)
+  socket.on('join', ({ name, room, interest, stance }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room, interest, stance });
 
     if(error) return callback(error);
 
     socket.join(user.room);
 
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    //socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    //socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
@@ -65,13 +63,13 @@ io.on('connection', (socket) => {
     const user = removeUser(socket.id);
 
     if(user) {
-      io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
+      
       io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
       curr_room = user.room
     }
     
     const ref = database.ref('full');
-    ref.once('value',(data) => {loop(data)}) ;
+    //ref.once('value',(data) => {loop(data)}) ;
   })
 });
 const  getusers= async(data) => {
@@ -88,7 +86,6 @@ const loop = async(data) => {
   
   for (const key in firebaseusers) {
    
-    console.log(JSON.stringify(firebaseusers[key].roomid.toLowerCase()) === JSON.stringify(curr_room).toLowerCase() )
 
     if (JSON.stringify(firebaseusers[key].roomid.toLowerCase()) === JSON.stringify(curr_room).toLowerCase()){
      

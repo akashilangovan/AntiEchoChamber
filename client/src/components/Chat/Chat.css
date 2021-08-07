@@ -4,6 +4,8 @@
   align-items: top;
   height: 160vh;
   background-color: #1A1A1D;
+  padding-top: 20px;
+  padding-left: 10px;
 }
 
 .container {

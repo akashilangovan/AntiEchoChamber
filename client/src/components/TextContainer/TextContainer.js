@@ -20,10 +20,10 @@ const TextContainer = ({ users }) => (
             <h1>Currently in Room:</h1>
             <div className="activeContainer">
               <h2>
-                {users.map(({name}) => (
-                  <div key={name} className="activeItem">
-                    {name}
-                    <img alt="Online Icon" src={onlineIcon}/>
+                {users.map(({name, stance, interest}) => (
+                  <div key={stance} className="activeItem">
+                    {'-'+name + " "+stance+" "+interest }
+                    
                   </div>
                 ))}
               </h2>

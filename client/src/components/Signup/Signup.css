@@ -1,0 +1,24 @@
+.signup {
+    display: flex;
+    width:30rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12%;
+    margin-bottom:auto;
+    align-items: center;
+    
+    
+}
+
+.signup-button {
+   width: 250px;
+    margin-top: 4%;
+}
+
+.main { 
+    
+   
+    
+  /* Center and scale the image nicely */
+  /* i added following code */
+}

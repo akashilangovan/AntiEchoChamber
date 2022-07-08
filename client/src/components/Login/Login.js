@@ -1,62 +1,62 @@
-import React, { Component } from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth'
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "../../contexts/AuthContext"
+import './Login.css';
+import { Link, useHistory } from "react-router-dom"
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+export default function Login() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { login } = useAuth()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
+  async function handleSubmit(e) {
+    e.preventDefault()
 
-    const firebaseApp = firebase.initializeApp({
-        apiKey: "AIzaSyD21Li7w8Sy3yLyzW4NQ0bw3-hyf9f23pk",
-          authDomain: "chatmaking-cf320.firebaseapp.com",
-          projectId: "chatmaking-cf320",
-          storageBucket: "chatmaking-cf320.appspot.com",
-          messagingSenderId: "1050099830709",
-          appId: "1:1050099830709:web:be3c28cbed1af15b0553fc",
-          measurementId: "G-4QF6WJQ3PD"
-      
-      
-      })
-  
-      const Login = ( ) => {
-      const {
-        user,
-        signOut,
-        signInWithGoogle,
-      } = this.props;
-  
-      return (
-        <div className="App">
-          <header className="App-header">
-            
-            {
-              user
-                ? <Link to={`/join?name=${user.displayname}`}>
-                <button className={'button mt-20'} type="submit">Sign In</button>
-              </Link>
-                : <p>Please sign in.</p>
-            }
-  
-            {
-              user
-                ? <button onClick={signOut}>Sign out</button>
-                : <button onClick={signInWithGoogle}>Sign in with Google</button>
-            }
-          </header>
-        </div>
-      );
+    try {
+      setError("")
+      setLoading(true)
+      await login(emailRef.current.value, passwordRef.current.value)
+      console.log("emailref")
+      console.log(emailRef.current)
+      history.push(`/join?name=${emailRef.current.value.slice(0, -10)}`)
+    } catch {
+      setError("Failed to log in")
     }
+
+    setLoading(false)
+  }
   
-  
-  const firebaseAppAuth = firebaseApp.auth();
-  
-  const providers = {
-    googleProvider: new firebase.auth.GoogleAuthProvider(),
-  };
-  
-  export default withFirebaseAuth({
-    providers,
-    firebaseAppAuth,
-  })(Login);
+
+  return (
+    <div>
+      <Card className = "login">
+        <Card.Body >
+          <h2 className="text-center mt-4">Log In</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} required />
+            </Form.Group>
+            <Button disabled={loading} className="login-button" type="submit">
+              Log In
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-3">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center mt-2">
+        Need an account? <Link to="/signup">Sign Up</Link>
+      </div>
+    </div>
+  )
+}

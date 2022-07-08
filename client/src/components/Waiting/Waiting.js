@@ -132,17 +132,26 @@ const Waiting = ({ location }) => {
         if(!changed){
         setRoom(roomid)
      } }, [firebaseusers]);
-          
-
-      
-    return (
-        <div >
-           <Link to={`/chat?name=${name}&room=${room}&interest=${interest}&stance=${stance}`}>
-          <button className={'button mt-20'} type="submit">Enter Chat Room</button>
+        
+      const showButton  = (<div >
+        <Link to={`/chat?name=${name}&room=${room}&interest=${interest}&stance=${stance}`}>
+        <button className={'button mt-20'} type="submit">Enter Chat Room</button>
         </Link>
+        </div>);
+      const waiting = (
+        <div>
+          waiting
         </div>
       );
+      return(
+        <div className="App">
+          {move ? showButton: waiting}
+        </div>
+      );
+      
+      
+      }
   
 
-}
+
 export default Waiting;

@@ -11,7 +11,7 @@ import './Chat.css';
 
 const database = app.database();
 
-const ENDPOINT = 'localhost:5000';
+const ENDPOINT = 'localhost:5000'; 
 
 let socket;
 

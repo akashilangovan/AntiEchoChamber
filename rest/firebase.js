@@ -4,7 +4,7 @@ const auth = require('firebase/auth');
 const analytics = require('firebase/analytics');
 const databse = require('firebase/database');
 
-const fb = firebase.initializeApp({
+const fb = firebase.initializeApp({ 
   apiKey: "AIzaSyD21Li7w8Sy3yLyzW4NQ0bw3-hyf9f23pk",
           authDomain: "chatmaking-cf320.firebaseapp.com",
           projectId: "chatmaking-cf320",

@@ -74,14 +74,14 @@ export default function SignIn() {
       id="combo-box-demo"
       options={top100Films}
       getOptionLabel={(option) => option.topic}
-      style={{ width: 300, backgroundColor:'white', marginLeft:25, marginTop:12, color:"white"}}
+      style={{ width: 300, backgroundColor:'white', marginLeft:38, marginTop:12, color:"white"}}
       renderInput={(params) => <TextField {...params} label="Discussion Topic" variant="outlined" />}
     />
     <Autocomplete onChange={(event, value) => setStance(value.stance)}
       id="stance"
       options={stances}
       getOptionLabel={(option) => option.stance}
-      style={{ width: 300, backgroundColor:'white', marginLeft:25, marginTop:12, color:"white"}}
+      style={{ width: 300, backgroundColor:'white', marginLeft:38, marginTop:12, color:"white"}}
       renderInput={(params) => <TextField {...params} label="Stance" variant="outlined" />}
     />
      

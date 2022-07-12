@@ -33,7 +33,7 @@ const Chat = ({ location }) => {
       setInterest(interest)
       setStance(stance)
       console.log(room)
-      const messages_ref = database.ref('full/'+room+'/messages')
+      const messages_ref = database.ref('full/'+room+'/messages') //replace with API call. Shouldn't be accessing DB from UI...
 
       messages_ref.once('value',(data) => {if(data.val() != null){
         setMessages(data.val())}}) ;   
@@ -68,17 +68,21 @@ const Chat = ({ location }) => {
 
 
     useEffect(() => {
+      
         const ref = database.ref('full');
         const {room} = queryString.parse(location.search);
         const hopperRef = ref.child(room);
         if((messages.length) != 0){
+          console.log(messages)
+
         hopperRef.update({
           'messages': messages
-    })};
+    })
+  };
 
     
     
-  }, [message]);
+  }, [messages]);
 
 
       
@@ -98,7 +102,7 @@ const Chat = ({ location }) => {
             <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             
         </div>
-        <TextContainer users={users}/>
+        
       </div>
     );
 }

@@ -69,7 +69,8 @@ const Waiting = ({ location }) => {
      
       
     }, []);
-    useEffect(() => {
+    useEffect(() => {     //All of this component should be in the API. This component should just call the AddtoQueue method and wait till response, and show loading screen meanwhile. 
+                          //AddtoQueue will only return when a chat mate has been found. 
         
         const { name, room } = queryString.parse(location.search)
        
@@ -145,7 +146,11 @@ const Waiting = ({ location }) => {
       );
       return(
         <div className="App">
-          {move ? showButton: waiting}
+          <div >
+        <Link to={`/chat?name=${name}&room=${room}&interest=${interest}&stance=${stance}`}>
+        <button className={'button mt-20'} type="submit">Enter Chat Room</button>
+        </Link>
+        </div>
         </div>
       );
       

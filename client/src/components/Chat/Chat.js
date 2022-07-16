@@ -47,12 +47,7 @@ const Chat = ({ location }) => {
         if(error) {
           alert(error);
         }
-      });
-    
-    
-    
-  
-      
+      });      
     }, [ENDPOINT, location.search]);
     
   useEffect(() => {
@@ -80,12 +75,8 @@ const Chat = ({ location }) => {
     })
   };
 
-    
-    
   }, [messages]);
 
-
-      
   const sendMessage = (event) => {
       event.preventDefault();
       if(message) {
@@ -96,15 +87,16 @@ const Chat = ({ location }) => {
 
     return (
       <div className="outerContainer">
-        <div className="container">
-          <InfoBar room={room } />
+      <div className="container">
+          <InfoBar room={room} />
           <Messages messages={messages} name={name} />
-            <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
-            
-        </div>
-        
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
+      <TextContainer users={users}/>
+    </div>
     );
 }
 
 export default Chat;
+
+

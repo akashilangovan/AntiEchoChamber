@@ -69,6 +69,11 @@ const Waiting = ({ location }) => {
      
       
     }, []);
+
+
+
+
+
     useEffect(() => {     //All of this component should be in the API. This component should just call the AddtoQueue method and wait till response, and show loading screen meanwhile. 
                           //AddtoQueue will only return when a chat mate has been found. 
         
@@ -106,6 +111,8 @@ const Waiting = ({ location }) => {
           }
           return true
         }
+
+
         const should_push = async() => {
           var finalpush = await loop();
           
@@ -114,18 +121,18 @@ const Waiting = ({ location }) => {
           }
           console.log(push, finalpush)
           if(push && finalpush)
-        {
-            
-            const newref = ref.push() 
-            newref.set ({
-            user: name,
-            interest:room,
-            roomid:roomid,
-            stance:stance
-            
-            })
-            setPush(false)
-        }
+              {
+                  
+                  const newref = ref.push() 
+                  newref.set ({
+                  user: name,
+                  interest:room,
+                  roomid:roomid,
+                  stance:stance
+                  
+                  })
+                  setPush(false)
+              }
         }
     
         should_push()

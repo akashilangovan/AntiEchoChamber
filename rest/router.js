@@ -46,6 +46,7 @@ server.post("/addtoqueue", (req, res) =>{
   const interest = req['body']['interest']
   const stance = req['body']['stance']
   // var done = False; 
+  // console.log(user, interest, stance)
   let first = true; 
   empty_ref.once('value',(data) => {
     if(data.val() != null && (!done)){
@@ -53,7 +54,7 @@ server.post("/addtoqueue", (req, res) =>{
       const empty_queue = data.val()
       for (const key in empty_queue) {
         if (empty_queue[key].interest === interest && empty_queue[key].user != user && empty_queue[key].stance != stance){
-           
+            // console.log(empty_queue[key].roomid)
             // setRoom(empty_queue[key].roomid)
             db.ref('full').update ({[empty_queue[key].roomid]: {
               user1: user,
@@ -68,14 +69,15 @@ server.post("/addtoqueue", (req, res) =>{
             // return false
           
             push = false; 
-            res.send("The user has been processed").status(200)
+            console.log(user + " has been added to the queue")
+            res.send(user + " has been added to the queue").status(200)
             
         }
       
     }
 
       if(push){
-        console.log(user + "if statment")
+        // console.log(user + "if statment")
 
         const newref = empty_ref.push() 
         first = false; 
@@ -87,7 +89,8 @@ server.post("/addtoqueue", (req, res) =>{
               stance:stance
                     
               })
-        res.send("The user has been processed").status(200)
+        console.log(user + " has been added to the queue")
+        res.send(user + " has been added to the queue").status(200)
 
       }
 
@@ -116,21 +119,26 @@ server.post("/addtoqueue", (req, res) =>{
       
 
     // })
+    // console.log(user)
     full_ref.on('value',(data) => {
-      console.log("on value here")
+      // console.log("on value here")
       const full_rooms = data.val()
       var done = false; 
         for(const room in full_rooms){
-          console.log("loop")
+          // console.log("loop")
           if((full_rooms[room]['user1'] == user) || (full_rooms[room]['user2'] == user)){
-            res.send("The user has been processed").status(200)
+            console.log(user + " has been put in a room")
+            res.send(user + " has been put in a room").status(200)
+            full_ref.off()
             done = true
+            return 
 
           }
         }
       
 
     })
+
 
 
   }

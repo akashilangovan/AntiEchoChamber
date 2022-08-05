@@ -10,7 +10,7 @@ const TextContainer = ({ users }) => (
       <h1>ANTI ECHO CHAMBER! <span role="img" aria-label="emoji"></span></h1>
       
       
-      <h2>Created with React, Express, Node, firebase and Socket.IO <span role="img"></span></h2>
+      <h2>NEED A BETTER UI FFS!<span role="img"></span></h2>
       
     </div>
     {

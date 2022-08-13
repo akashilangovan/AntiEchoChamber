@@ -48,16 +48,20 @@ const Waiting = ({ location }) => {
                   stance: stance })
             };
       
-            const response = await fetch('http://localhost:8080/addtoqueue', postbody);
+            const roomID = await fetch('http://localhost:8080/addtoqueue', postbody);
 
-            const data = await response.text();
-            console.log(data)
-              
-               const load_url = 'http://localhost:8080/checkloading/' + name
-               const loading_done = await fetch(load_url)
-               const load_status = await loading_done.text();
-               setLoading(false)
-               console.log(load_status)
+            
+
+           
+            const load_url = 'http://localhost:8080/checkloading/' + name
+            const loading_done = await fetch(load_url)
+            const load_status = await loading_done.text();
+            console.log("pancake")
+            console.log(load_status)
+            const ROOMID = JSON.parse(load_status)['roomid']
+            setRoom(ROOMID)
+            setLoading(false)
+            console.log(load_status)
 
   
       }
@@ -73,6 +77,7 @@ const Waiting = ({ location }) => {
       const waiting = (
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
           <img src={gif} alt="searching..." />
+          LOOKING FOR A DISCUSSION...
         </div>
       );
       return(

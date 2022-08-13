@@ -61,7 +61,7 @@ server.post("/addtoqueue", (req, res) =>{
           
             push = false; 
             console.log(user + " has been added to the queue")
-            res.send(user + " has been added to the queue").status(200)
+            res.send({"roomid": empty_queue[key].roomid}).status(200)
             
         }
       
@@ -101,7 +101,7 @@ server.post("/addtoqueue", (req, res) =>{
         for(const room in full_rooms){
           if((full_rooms[room]['user1'] == user) || (full_rooms[room]['user2'] == user)){
             console.log(user + " has been put in a room")
-            res.send(user + " has been put in a room").status(200)
+            res.send({"roomid": full_rooms[room]['roomid']}).status(200)
             full_ref.off()
             done = true
             return 

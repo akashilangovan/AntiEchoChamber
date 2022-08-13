@@ -42,7 +42,8 @@ const Chat = ({ location }) => {
       const ref = database.ref('empty');
                           
       setName(name)
-    
+      console.log("from chat: ")
+      console.log(name, room, interest, stance)
       socket.emit('join', { name,room, interest, stance }, (error) => {
         if(error) {
           alert(error);

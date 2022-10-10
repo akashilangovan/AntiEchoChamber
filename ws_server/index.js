@@ -40,9 +40,8 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-
     if(user) {
-      
+      console.log(user + ' has left room ' + user.room)
       io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
       curr_room = user.room
     }

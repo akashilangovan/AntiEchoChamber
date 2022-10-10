@@ -64,7 +64,7 @@ const Chat = ({ location }) => {
 
 
     useEffect(() => {
-      
+        //Call rest api endpoint to update messages
         const ref = database.ref('full');
         const {room} = queryString.parse(location.search);
         const hopperRef = ref.child(room);
@@ -93,7 +93,7 @@ const Chat = ({ location }) => {
           <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
-      <TextContainer users={users}/>
+      {/* <TextContainer users={users}/> */}
     </div>
     );
 }

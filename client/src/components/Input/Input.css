@@ -9,6 +9,7 @@
   padding: 5%;
   width: 80%;
   font-size: 1.3em;
+  height: 10px;
 }
 
 input:focus, textarea:focus, select:focus{
@@ -16,12 +17,25 @@ input:focus, textarea:focus, select:focus{
 }
 
 .sendButton {
-  color: #fff !important;
+  color: black !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #000000;
-  padding: 20px;
+  background: white;
+  padding: 10px;
   display: inline-block;
   border: none;
   width: 20%;
+ 
+}
+
+.sendButton1 {
+  color:rgb(50, 191, 238) !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: white;
+  padding: 10px;
+  display: inline-block;
+  border: none;
+  width: 20%;
+ 
 }

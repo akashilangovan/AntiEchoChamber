@@ -90,7 +90,7 @@ server.post("/addtoqueue", (req, res) =>{
 
   })
   
-  server.get("/checkloading/:user", (req, res) => {
+server.get("/checkloading/:user", (req, res) => {
     
     const user = req.params.user; 
     const full_ref = db.ref('full')
@@ -116,7 +116,7 @@ server.post("/addtoqueue", (req, res) =>{
 
   }
   )
-  server.get("/rooms", (req, res) => {
+server.get("/rooms", (req, res) => {
    
     const full_ref = db.ref('full')
     full_ref.on('value',(data) => {if(data.val() != null){
